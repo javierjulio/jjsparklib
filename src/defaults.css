@@ -1,0 +1,65 @@
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace "http://jjs.javier-julio.com/flex/spark";
+
+/* Default Skins */
+
+AutoComplete 
+{
+	drop-shadow-visible: true;
+	padding-bottom: 3;
+	padding-left: 3;
+	padding-right: 3;
+	padding-top: 5;
+	/*
+	Causes error when using SearchSelectList in an app because it extends 
+	AutoComplete, but don't understand why it doesn't override and use 
+	SearchSelectListSkin instead, either way need to create own skin for 
+	AutoComplete as it extends DropDownListBase and ComboBoxSkin's 
+	host component is set to ComboBox
+	*/
+	/*skin-class: ClassReference("spark.skins.spark.ComboBoxSkin");*/
+}
+
+CheckList 
+{
+	skin-class: ClassReference("com.javierjulio.sparklib.skins.CheckListSkin");
+}
+
+FilterableList 
+{
+	skin-class: ClassReference("com.javierjulio.sparklib.skins.FilterableListSkin");
+}
+
+ImageInput 
+{
+	error-skin: ClassReference("com.javierjulio.sparklib.skins.ImageInputErrorSkin");
+	skin-class: ClassReference("com.javierjulio.sparklib.skins.ImageInputSkin");
+}
+
+PromptTextInput 
+{
+	skin-class: ClassReference("com.javierjulio.sparklib.skins.PromptTextAreaSkin");
+}
+
+PromptTextInput 
+{
+	icon: Embed("assets/images/promptTextInput_search.png");
+	skin-class: ClassReference("com.javierjulio.sparklib.skins.PromptTextInputSkin");
+}
+
+ProgressSpinner 
+{
+	background-alpha: 1;
+	background-color: NaN;
+	spinner-alpha: 1;
+	spinner-color: #829AD1;
+	spinner-highlight-color: #001A8E;
+	spinner-line-thickness: 2;
+	spinner-thickness: 2;
+	spinner-type: gradientcircle;
+}
+/*
+SearchSelectList 
+{
+	skin-class: ClassReference("com.javierjulio.sparklib.skins.SearchSelectListSkin");
+}*/

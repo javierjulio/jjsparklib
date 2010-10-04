@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<design>
+	
+	<namespaces>
+		<namespace prefix="jjs" uri="http://jjs.javier-julio.com/flex/spark" />
+	</namespaces>
+	
+	<categories>
+		<category id="jjsc" label="JavierJulio Spark Controls" defaultExpand="true" />
+	</categories>
+	
+	<components>
+		<component name="AutoComplete" namespace="jjs" category="jjsc" displayName="AutoComplete" />
+		<component name="CheckList" namespace="jjs" category="jjsc" displayName="CheckList" />
+		<component name="FilterableList" namespace="jjs" category="jjsc" displayName="FilterableList" />
+		<component name="ImageInput" namespace="jjs" category="jjsc" displayName="ImageInput" />
+		<component name="ProgressSpinner" namespace="jjs" category="jjsc" displayName="ProgressSpinner" />
+		<component name="PromptTextArea" namespace="jjs" category="jjsc" displayName="PromptTextArea" />
+		<component name="PromptTextInput" namespace="jjs" category="jjsc" displayName="PromptTextInput" />
+		<component name="SearchSelectList" namespace="jjs" category="jjsc" displayName="SearchSelectList" />
+	</components>
+	
+</design>

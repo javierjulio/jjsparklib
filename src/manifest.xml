@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<componentPackage>
+
+	<!-- 9mmedia spark library -->
+	<component id="AutoComplete" class="com.javierjulio.sparklib.components.AutoComplete"/>
+	<component id="CheckList" class="com.javierjulio.sparklib.components.CheckList"/>
+	<component id="CheckListSkin" class="com.javierjulio.sparklib.skins.CheckListSkin"/>
+	<component id="DefaultCheckListItemRenderer" class="com.javierjulio.sparklib.skins.DefaultCheckListItemRenderer"/>
+	<component id="FilterableList" class="com.javierjulio.sparklib.components.FilterableList"/>
+	<component id="FilterableListSkin" class="com.javierjulio.sparklib.skins.FilterableListSkin"/>
+	<component id="ImageInput" class="com.javierjulio.sparklib.components.ImageInput"/>
+	<component id="ImageInputErrorSkin" class="com.javierjulio.sparklib.skins.ImageInputErrorSkin"/>
+	<component id="ImageInputSkin" class="com.javierjulio.sparklib.skins.ImageInputSkin"/>
+	<component id="NavigatorContentSkin" class="com.javierjulio.sparklib.skins.NavigatorContentSkin"/>
+	<component id="NonInteractiveCheckBox" class="com.javierjulio.sparklib.components.supportClasses.NonInteractiveCheckBox"/>
+	<component id="ProgressSpinner" class="com.javierjulio.sparklib.components.ProgressSpinner"/>
+	<component id="PromptTextArea" class="com.javierjulio.sparklib.components.PromptTextArea"/>
+	<component id="PromptTextAreaSkin" class="com.javierjulio.sparklib.skins.PromptTextAreaSkin"/>
+	<component id="PromptTextInput" class="com.javierjulio.sparklib.components.PromptTextInput"/>
+	<component id="PromptTextInputClearButtonSkin" class="com.javierjulio.sparklib.skins.PromptTextInputClearButtonSkin"/>
+	<component id="PromptTextInputSkin" class="com.javierjulio.sparklib.skins.PromptTextInputSkin"/>
+	
+</componentPackage>

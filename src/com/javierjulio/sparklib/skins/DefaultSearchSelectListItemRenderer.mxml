@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true" addedEffect="{fadeIn}">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.CloseEvent;
+			
+			import spark.components.List;
+			import spark.skins.spark.TitleWindowCloseButtonSkin;
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Fade id="fadeIn" duration="450" alphaFrom="0.1" alphaTo="1" />
+	</fx:Declarations>
+	
+	<s:Label text="{label}" bottom="5" left="5" right="25" top="5" verticalCenter="0" />
+	
+	<s:Button skinClass="spark.skins.spark.TitleWindowCloseButtonSkin" 
+			  width="15" height="15" right="5" verticalCenter="-2" 
+			  click="dispatchEvent(new CloseEvent(CloseEvent.CLOSE, false, false, 1));" />
+	
+</s:ItemRenderer>

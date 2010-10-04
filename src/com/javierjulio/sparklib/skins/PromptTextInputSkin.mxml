@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--- The default skin class for 9m PromptTextInput component. Used Spark 
+TextInputSkin class as the base template.
+
+@see com.ninem.spark.components.PromptTextInput
+@see spark.components.TextInput
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			 xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009" 
+			 alpha.disabled="0.5" blendMode="normal">
+	
+	<fx:Metadata>
+		[HostComponent("com.javierjulio.sparklib.components.PromptTextInput")]
+	</fx:Metadata>
+	
+	<fx:Script fb:purpose="styling">
+		<![CDATA[
+			private var iconChanged:Boolean = false;
+			private var paddingChanged:Boolean = false;
+			
+			/* Define the skin elements that should not be colorized. */
+			static private const exclusions:Array = ["background", "textDisplay", "promptDisplay", "clearButton"];
+			
+			/**
+			 * @private
+			 */   
+			override public function get colorizeExclusions():Array {return exclusions;}
+			
+			/* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
+			static private const contentFill:Array = ["bgFill"];
+			
+			/**
+			 * @private
+			 */
+			override public function get contentItems():Array {return contentFill};
+			
+			/**
+			 * @private
+			 */
+			private function updateIcon():void 
+			{
+				if (iconDisplay) 
+					iconDisplay.source = getStyle("icon");
+			}
+			
+			/**
+			 *  @private
+			 */
+			private function updatePadding():void
+			{
+				// Push padding styles into the textDisplay
+				var paddingBottom:Number = getStyle("paddingBottom");
+				var paddingLeft:Number = getStyle("paddingLeft");
+				var paddingRight:Number = getStyle("paddingRight");
+				var paddingTop:Number = getStyle("paddingTop");
+				
+				if (textDisplay) 
+				{
+					if (textDisplay.getStyle("paddingLeft") != paddingLeft)
+						textDisplay.setStyle("paddingLeft", paddingLeft);
+					
+					if (textDisplay.getStyle("paddingTop") != paddingTop)
+						textDisplay.setStyle("paddingTop", paddingTop);
+					
+					if (textDisplay.getStyle("paddingRight") != paddingRight)
+						textDisplay.setStyle("paddingRight", paddingRight);
+					
+					if (textDisplay.getStyle("paddingBottom") != paddingBottom)
+						textDisplay.setStyle("paddingBottom", paddingBottom);
+				}
+				
+				if (promptDisplay) 
+				{
+					if (promptDisplay.getStyle("paddingLeft") != paddingLeft)
+						promptDisplay.setStyle("paddingLeft", paddingLeft);
+					
+					if (promptDisplay.getStyle("paddingTop") != paddingTop)
+						promptDisplay.setStyle("paddingTop", paddingTop);
+					
+					if (promptDisplay.getStyle("paddingRight") != paddingRight)
+						promptDisplay.setStyle("paddingRight", paddingRight);
+					
+					if (promptDisplay.getStyle("paddingBottom") != paddingBottom)
+						promptDisplay.setStyle("paddingBottom", paddingBottom);
+				}
+			}
+			
+			/**
+			 * @private
+			 */
+			override protected function commitProperties():void
+			{
+				super.commitProperties();
+				
+				if (iconChanged) 
+				{
+					updateIcon();
+					iconChanged = false;
+				}
+				
+				if (paddingChanged) 
+				{
+					updatePadding();
+					paddingChanged = false;
+				}
+			}
+			
+			/**
+			 * @private
+			 */
+			override protected function initializationComplete():void
+			{
+				useChromeColor = true;
+				super.initializationComplete();
+			}
+			
+			/**
+			 * @private
+			 */
+			override protected function stateChanged(oldState:String, newState:String, recursive:Boolean):void 
+			{
+				super.stateChanged(oldState, newState, recursive);
+				
+				// when PromptTextInput has a text value by default when its first 
+				// created and displayed, if the text is cleared and the prompt appears 
+				// for some reason the promptDisplay has its padding reset to 0 despite 
+				// having updatePadding() keep its padding values in sync with the 
+				// textDisplay component. Seems that entering the "prompted" state 
+				// happens after an invalidation phase so updating padding at the 
+				// commitProperties or updateDisplayList level doesn't work, still is 
+				// reset to 0 at some point. Don't know why but no default values set 
+				// in Spark defaults.css for Label or TextBase. To workaround the issue 
+				// whenever entering prompted state a padding update is performed so 
+				// textDisplay and promptDisplay will appear in same position
+				if (newState == "prompted") 
+				{
+					paddingChanged = true;
+					invalidateProperties();
+				}
+			}
+			
+			/**
+			 *  @private
+			 */
+			override public function styleChanged(styleProp:String):void
+			{
+				var allStyles:Boolean = (!styleProp || styleProp == "styleName");
+				
+				super.styleChanged(styleProp);
+				
+				if (allStyles || styleProp.indexOf("padding") == 0)
+				{
+					paddingChanged = true;
+					invalidateProperties();
+				}
+				
+				if (allStyles || styleProp == "icon")
+				{
+					iconChanged = true;
+					invalidateProperties();
+				}
+			}
+			
+			/**
+			 * @private
+			 */
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				if (getStyle("borderVisible") == true)
+				{
+					border.visible = true;
+					shadow.visible = true;
+					background.left = background.top = background.right = background.bottom = 1;
+					textDisplay.left = textDisplay.top = textDisplay.bottom = 1;
+					
+					// account for clear button even when its not displayed as 
+					// the text control will resize differently affecting 
+					// even the bordered skin
+					textDisplay.right = 15 + 4 + 1; // width + right + border
+					if (promptDisplay) 
+					{
+						promptDisplay.right = textDisplay.right;
+						promptDisplay.left = promptDisplay.top = promptDisplay.bottom = 1;
+					}
+				}
+				else
+				{
+					border.visible = false;
+					shadow.visible = false;
+					background.left = background.top = background.right = background.bottom = 0;
+					textDisplay.left = textDisplay.top = textDisplay.bottom = 0;
+					
+					// account for clear button even when its not displayed as 
+					// the text control will resize differently affecting 
+					// even the bordered skin
+					textDisplay.right = 15 + 4; // width + right
+					if (promptDisplay) 
+					{
+						promptDisplay.right = textDisplay.right;
+						promptDisplay.left = promptDisplay.top = promptDisplay.bottom = 0;
+					}
+				}
+				
+				if (iconDisplay && iconDisplay.source) 
+				{
+					textDisplay.left = iconDisplay.left + iconDisplay.width;
+				}
+				
+				if (clearButton) 
+				{
+					textDisplay.right = clearButton.getStyle("right") + clearButton.width + 1;
+				}
+				
+				if (promptDisplay) 
+				{
+					promptDisplay.left = textDisplay.left;
+					promptDisplay.right = textDisplay.right;
+				}
+				
+				borderStroke.color = getStyle("borderColor");
+				borderStroke.alpha = getStyle("borderAlpha");
+				
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Script>
+		<![CDATA[
+			/**
+			 * @private
+			 */
+			private static const focusExclusions:Array = ["textDisplay", "promptDisplay"];
+			
+			/**
+			 * @private
+			 */
+			override public function get focusSkinExclusions():Array { return focusExclusions;};
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="disabled"/>
+		<s:State name="prompted"/>
+		<s:State name="textEntered"/>
+	</s:states>
+	
+	<!-- border --> 
+	<!--- @private -->
+	<s:Rect left="0" right="0" top="0" bottom="0" id="border">
+		<s:stroke>
+			<!--- @private -->
+			<s:SolidColorStroke id="borderStroke" weight="1" />
+		</s:stroke>
+	</s:Rect>
+	
+	<!-- fill -->
+	<!--- Defines the appearance of the TextInput component's background. -->
+	<s:Rect id="background" left="1" right="1" top="1" bottom="1">
+		<s:fill>
+			<!--- @private Defines the background fill color. -->
+			<s:SolidColor id="bgFill" color="0xFFFFFF" />
+		</s:fill>
+	</s:Rect>
+	
+	<!-- shadow -->
+	<!--- @private -->
+	<s:Rect left="1" top="1" right="1" height="1" id="shadow">
+		<s:fill>
+			<s:SolidColor color="0x000000" alpha="0.12" />
+		</s:fill>
+	</s:Rect>
+	
+	<!-- icon -->
+	<!--- @private -->
+	<s:BitmapImage id="iconDisplay" left="3" verticalCenter="0" />
+	
+	<!-- text -->
+	<!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
+	<s:RichEditableText id="textDisplay" top="1" bottom="1" 
+						verticalAlign="middle" widthInChars="10" />
+	
+	<s:Label id="promptDisplay" includeIn="prompted" color="#929292" 
+			 top="1" bottom="1" verticalAlign="middle" />
+	
+	<!-- clear button -->
+	<!--- @private -->
+	<s:Button id="clearButton" skinClass="com.javierjulio.sparklib.skins.PromptTextInputClearButtonSkin" 
+			  width="15" height="15" right="4" verticalCenter="0" includeIn="textEntered" />
+	
+</s:SparkSkin>
